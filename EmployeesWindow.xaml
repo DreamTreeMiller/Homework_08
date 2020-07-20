@@ -41,11 +41,11 @@
 									/>
 					<GridViewColumn Header="Отдел" 
 									DisplayMemberBinding="{Binding DepName}"
-									Width="Auto"
+									Width="100"
 									/>
 					<GridViewColumn Header="Оклад" 
 									DisplayMemberBinding="{Binding Salary}"
-									Width="Auto"
+									Width="70"
 									/>
 					<GridViewColumn Header="Проекты" 
 									DisplayMemberBinding="{Binding NumOfProj}"

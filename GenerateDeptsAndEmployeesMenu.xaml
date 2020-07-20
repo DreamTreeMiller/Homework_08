@@ -52,7 +52,7 @@
 		</TextBox>
 		<TextBlock x:Name="numOfEmplText"
 				   Grid.Column="0" Grid.Row="2"
-				   Text="Конечный год"
+				   Text="Кол-во сотрудников в отделе"
 				   Margin="0,0,10,0"
 				   VerticalAlignment="Center"
 				   HorizontalAlignment="Right"

@@ -20,37 +20,10 @@ namespace Homework_08
 		/// <summary>
 		/// Создаём этот класс только для реализации проверки входных значение в окне
 		/// </summary>
-		public class EntryRange : IDataErrorInfo
+		public class EntryRange
 		{
 			public uint NumDepRange { get; set; }
 			public uint NumEmpRange { get; set; }
-			public string this[string columnName]
-			{
-				get
-				{
-					string error = String.Empty;
-					switch (columnName)
-					{
-						case "NumDepRange":
-							if ((NumDepRange < 1) || (NumDepRange > 10_000))
-							{
-								error = "Количество департаментов должно быть от 1 и до 10,000";
-							}
-							break;
-						case "NumEmpRange":
-							if ((NumEmpRange < 1) || (NumEmpRange > 1_000_000))
-							{
-								error = "Количество департаментов должно быть от 1 и до 1,000,000";
-							}
-							break;
-					}
-					return error;
-				}
-			}
-			public string Error
-			{
-				get { throw new NotImplementedException(); }
-			}
 		}
 		public EntryRange entryRange;
 		public GenerateDeptsAndEmployeesMenu()
