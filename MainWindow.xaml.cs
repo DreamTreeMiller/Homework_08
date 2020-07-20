@@ -55,10 +55,14 @@ namespace Homework_08
 			Apple.GenerateDeptAndEmployees((int)newOrg.entryRange.NumDepRange,
 										   (int)newOrg.entryRange.NumEmpRange);
 			depList.ItemsSource = Apple.Departments;
+			depList.Items.Refresh();
 		}
 
 		private void Click_Employees(object sender, RoutedEventArgs e)
 		{
+			if (Apple.totalEmployees == 0) return;
+			EmployeesWindow empWin = new EmployeesWindow(Apple);
+			empWin.ShowDialog();
 
 		}
 

@@ -27,23 +27,25 @@
 				   VerticalAlignment="Top"
 				   />
 		<ListView x:Name="depList"
-				Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
-				Margin="10"
-				HorizontalContentAlignment="Stretch"
-				ScrollViewer.HorizontalScrollBarVisibility="Auto" 
-				>
+				  Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+				  Width="Auto"
+				  Margin="10"
+				  HorizontalContentAlignment="Stretch"
+				  ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+				  >
 			<ListView.View>
 				<GridView>
 					<GridViewColumn Header="№" 
-								DisplayMemberBinding="{Binding DepID}"
-								Width="Auto"
-								/>
+									DisplayMemberBinding="{Binding DepID}"
+									Width="40"
+									/>
 					<GridViewColumn Header="Название" 
 								DisplayMemberBinding="{Binding DepName}"
 								Width="Auto"
 								/>
 					<GridViewColumn Header="Кол-во сотрудников" 
 								DisplayMemberBinding="{Binding NumOfEmpl}"
+								
 								Width="Auto"
 								/>
 					<GridViewColumn Header="Дата создания" 

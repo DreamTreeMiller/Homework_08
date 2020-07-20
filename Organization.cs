@@ -87,29 +87,11 @@ namespace Homework_08
                                                $"Имя_{r.Next(1, 1000)}",                // Имя
                                                $"Фамилия_{r.Next(1, 100_000)}",         // Фамилия
                                                r.Next(21, 26),                          // возраст
-                                               i,                                       // номер отдела
+                                               "Отдел_" + $"{i}",                       // название отдела
                                                r.Next(4, 21) * 5_000,                   // зарплата
                                                r.Next(1, 6)));                          // кол-во проектов
                 }
             }
-        }
-
-        /// <summary>
-        /// Печатает список всех департаметов
-        /// </summary>
-        public void PrintDepts()
-        {
-            foreach (var d in Departments)
-                Console.WriteLine(d.ToString());
-        }
-
-        /// <summary>
-        /// Печатает список всех сотрудников
-        /// </summary>
-        public void PrintEmployees()
-        {
-            foreach (var e in Employees)
-                Console.WriteLine(e.ToString());
         }
 
         /// <summary>
