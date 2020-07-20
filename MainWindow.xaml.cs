@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Homework_08
 {
@@ -51,7 +53,10 @@ namespace Homework_08
 			if (newOrg.DialogResult == null ||
 				newOrg.DialogResult == false)
 				return;
-
+			Apple.Departments.Clear();
+			Apple.numberOfDepts = 0;
+			Apple.Employees.Clear();
+			Apple.totalEmployees = 0;
 			Apple.GenerateDeptAndEmployees((int)newOrg.entryRange.NumDepRange,
 										   (int)newOrg.entryRange.NumEmpRange);
 			depList.ItemsSource = Apple.Departments;
@@ -68,12 +73,66 @@ namespace Homework_08
 
 		private void Click_UploadFromXLM(object sender, RoutedEventArgs e)
 		{
+			string filepathname;
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.FileName = "Organization";
+			dlg.DefaultExt = ".xml";
+			dlg.Filter = "XML documents (.xml)|*.xml";
 
+			bool? result = dlg.ShowDialog();
+			if (result != true) return;
+
+			// Open document
+			filepathname = dlg.FileName;
+
+			// Создаем сериализатор на основе указанного типа 
+			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Organization));
+
+			// Создаем поток для чтения данных
+			Stream fStream = new FileStream(filepathname, FileMode.Open, FileAccess.Read);
+
+			// Запускаем процесс десериализации
+			Organization tmp = xmlSerializer.Deserialize(fStream) as Organization;
+
+			// Закрываем поток
+			fStream.Close();
+
+			Apple.Departments = tmp.Departments;
+			Apple.Employees = tmp.Employees;
+			Apple.numberOfDepts = tmp.numberOfDepts;
+			Apple.totalEmployees = tmp.totalEmployees;
+			depList.ItemsSource = Apple.Departments;
+			depList.Items.Refresh();
 		}
 
 		private void Click_SaveToXLM(object sender, RoutedEventArgs e)
 		{
+			// Configure save file dialog box
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.FileName = "Organization"; // Default file name
+			dlg.DefaultExt = ".xml"; // Default file extension
+			dlg.Filter = "XML documents (.xml)|*.xml"; // Filter files by extension
 
+			// Show save file dialog box
+			bool? result = dlg.ShowDialog();
+
+			// Process save file dialog box results
+			if (result != true) return;
+
+			// Save document
+			string Path = dlg.FileName;
+
+			// Создаем сериализатор на основе указанного типа 
+			XmlSerializer xmlSerializer = new XmlSerializer(typeof(Organization));
+
+			// Создаем поток для сохранения данных
+			Stream fStream = new FileStream(Path, FileMode.OpenOrCreate, FileAccess.Write);
+
+			// Запускаем процесс сериализации
+			xmlSerializer.Serialize(fStream, Apple);
+
+			// Закрываем поток
+			fStream.Close();
 		}
 
 		private void Click_ExitButton(object sender, RoutedEventArgs e)

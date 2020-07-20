@@ -75,7 +75,7 @@ namespace Homework_08
             }
             Random r = new Random();
             int nEmp;
-            totalEmployees = 1;
+            totalEmployees = 0;
             numberOfDepts = maxDep;
             for (int i = 1; i <= maxDep; i++)
             {
@@ -83,7 +83,8 @@ namespace Homework_08
                 Departments.Add(new Department(i, "Отдел_" + $"{i}", nEmp));
                 for (int j = 1; j <= nEmp; j++)
                 {
-                    Employees.Add(new Employee(totalEmployees++,                        // уникальный номер сотрудника
+                    totalEmployees++;
+                    Employees.Add(new Employee(totalEmployees,                          // уникальный номер сотрудника
                                                $"Имя_{r.Next(1, 1000)}",                // Имя
                                                $"Фамилия_{r.Next(1, 100_000)}",         // Фамилия
                                                r.Next(21, 26),                          // возраст
