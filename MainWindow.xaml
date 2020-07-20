@@ -62,7 +62,7 @@
 
 		<StackPanel
 			Grid.Column="1"
-			Grid.Row="1"
+			Grid.Row="1" Grid.RowSpan="2"
 			>
 			<Button x:Name="GenerateDeptAndEmployees" 
 					Click="Click_GenerateDeptAndEmployees"  
@@ -115,6 +115,32 @@
 					BorderThickness="0"
 					Background="WhiteSmoke"
 					Click="Click_SaveToXLM">
+				<Button.Resources>
+					<Style TargetType="{x:Type Border}">
+						<Setter Property="CornerRadius" Value="5"/>
+					</Style>
+				</Button.Resources>
+			</Button>
+			<Button x:Name="UploadFromJSON" 
+					Content="Загрузить из JSON файла"
+					Width="180"
+					Margin="5"
+					BorderThickness="0"
+					Background="WhiteSmoke"
+					Click="Click_UploadFromJSON">
+				<Button.Resources>
+					<Style TargetType="{x:Type Border}">
+						<Setter Property="CornerRadius" Value="5"/>
+					</Style>
+				</Button.Resources>
+			</Button>
+			<Button x:Name="SaveToJSON" 
+					Content="Сохранить в JSON файл"
+					Width="180"
+					Margin="5"
+					BorderThickness="0"
+					Background="WhiteSmoke"
+					Click="Click_SaveToJSON">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>

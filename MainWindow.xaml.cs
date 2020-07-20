@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Xml.Serialization;
+using Newtonsoft.Json.Linq;
 
 namespace Homework_08
 {
@@ -135,6 +137,80 @@ namespace Homework_08
 			fStream.Close();
 		}
 
+		private void Click_UploadFromJSON(object sender, RoutedEventArgs e)
+		{
+			string filepathname;
+			Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+			dlg.FileName = "Organization";
+			dlg.DefaultExt = ".json";
+			dlg.Filter = "JSON documents (.json)|*.json";
+
+			bool? result = dlg.ShowDialog();
+			if (result != true) return;
+
+			// Open document
+			filepathname = dlg.FileName;
+			string json = File.ReadAllText(filepathname);
+			var depts = JObject.Parse(json)["Departments"].ToArray();
+			var empls = JObject.Parse(json)["Employees"].ToArray();
+			Apple.numberOfDepts = (int)JObject.Parse(json)["numberOfDepts"];
+			//Apple.numberOfDepts = Int32.Parse(JObject.Parse(json)["numberOfDepts"].ToString());
+			Apple.totalEmployees = (int)JObject.Parse(json)["totalEmployees"];
+			//Apple.totalEmployees = Int32.Parse(JObject.Parse(json)["totalEmployees"].ToString());
+
+			Apple.Departments.Clear();
+			Apple.Employees.Clear();
+
+			foreach (var d in depts)
+			{
+				Department tmpD = new Department();
+				tmpD.DepID		 =		(int)d["DepID"];
+				tmpD.DepName	 =			 d["DepName"].ToString();
+				tmpD.OpeningDate = (DateTime)d["OpeningDate"];
+				tmpD.NumOfEmpl	 =		(int)d["NumOfEmpl"];
+				tmpD.Projects	 =			 d["Projects"].ToString();
+				Apple.Departments.Add(tmpD);
+			}
+
+			foreach (var emp in empls)
+			{
+				Employee tmpE = new Employee();
+				tmpE.ID			= (int)emp["ID"];
+				tmpE.FirstName	=      emp["FirstName"].ToString();
+				tmpE.LastName	=      emp["LastName"].ToString();
+				tmpE.Age		= (int)emp["Age"];
+				tmpE.DepName	=      emp["DepName"].ToString();
+				tmpE.Salary		= (int)emp["Salary"];
+				tmpE.NumOfProj	= (int)emp["NumOfProj"];
+				Apple.Employees.Add(tmpE);
+			}
+
+			depList.ItemsSource = Apple.Departments;
+			depList.Items.Refresh();
+		}
+
+		private void Click_SaveToJSON(object sender, RoutedEventArgs e)
+		{
+			// Configure save file dialog box
+			Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+			dlg.FileName = "Organization"; // Default file name
+			dlg.DefaultExt = ".json"; // Default file extension
+			dlg.Filter = "JSON documents (.json)|*.json"; // Filter files by extension
+
+			// Show save file dialog box
+			bool? result = dlg.ShowDialog();
+
+			// Process save file dialog box results
+			if (result != true) return;
+
+			// Save document
+			string Path = dlg.FileName;
+
+			string json = JsonConvert.SerializeObject(Apple);
+			File.WriteAllText(Path, json);
+
+		}
+		
 		private void Click_ExitButton(object sender, RoutedEventArgs e)
 		{
 			System.Windows.Application.Current.Shutdown();
