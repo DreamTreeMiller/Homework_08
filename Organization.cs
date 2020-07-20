@@ -29,11 +29,11 @@ namespace Homework_08
         /// <returns>0  - если отдел успешно открыт</returns>
         /// <returns>-1 - если номер отдела меньше или равен 0, или больше 9999</returns>
         /// <returns>-2 - если отдел с таким номером уже существует</returns>
-        public int OpenDept(int depNum, int numOfEmpl)
+        public int OpenDept(int depNum, string depName, int numOfEmpl)
         {
             if (depNum <= 0 || depNum > 9_999) return -1;  // Номер отдела от 1 до 9_999
-            if (DeptNumExists(depNum)) return -2;            // Департамент с таким номером уже существует
-            Department newDep = new Department(depNum, numOfEmpl);
+            if (DeptNumExists(depNum)) return -2;          // Департамент с таким номером уже существует
+            Department newDep = new Department(depNum, depName, numOfEmpl);
             Departments.Add(newDep);
             numberOfDepts++;
             return 0;
@@ -80,7 +80,7 @@ namespace Homework_08
             for (int i = 1; i <= maxDep; i++)
             {
                 nEmp = r.Next(1, maxEmp + 1);
-                Departments.Add(new Department(i, nEmp));
+                Departments.Add(new Department(i, "Отдел_" + $"{i}", nEmp));
                 for (int j = 1; j <= nEmp; j++)
                 {
                     Employees.Add(new Employee(totalEmployees++,                        // уникальный номер сотрудника

@@ -18,69 +18,52 @@
 			<RowDefinition Height="5*" MinHeight="190"/>
 			<RowDefinition Height="9*"/>
 		</Grid.RowDefinitions>
-		<TextBlock x:Name="currentDate"
+		<TextBlock x:Name="header"
+				   Text="Организация - отделы"
 				   Margin="10, 5" 
 				   FontSize="16" 
 				   FontWeight="Bold" 
 				   HorizontalAlignment="Left" 
 				   VerticalAlignment="Top"
 				   />
-		<ListBox x:Name="dayToShowList"
-				 Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
-				 Margin="10"
-				 HorizontalContentAlignment="Stretch"
-				 ScrollViewer.HorizontalScrollBarVisibility="Disabled" DataContextChanged="dayToShowList_DataContextChanged"
-				 >
-			<ListBox.ItemTemplate>
-				<DataTemplate>
-					<Grid ShowGridLines="False">
-						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="200"/>
-							<ColumnDefinition/>
-						</Grid.ColumnDefinitions>
-						<Grid.RowDefinitions>
-							<RowDefinition/>
-							<RowDefinition/>
-							<RowDefinition/>
-						</Grid.RowDefinitions>
-						<TextBox x:Name="noteTime"
-									 Text="{Binding stringTime}"
-									 Grid.Column="0" 
-									 Grid.Row="0"
-									 HorizontalAlignment="Left" 
-									 />
-						<TextBox x:Name="noteLocation"
-									 Text="{Binding Location}"
-									 Grid.Column="1" Grid.Row="0"
-									 HorizontalAlignment="Right"
-									 />
-						<TextBox x:Name="noteTitle"
-									 Text="{Binding Title}"
-									 Grid.Column="0" 
-									 Grid.ColumnSpan="2" 
-									 Grid.Row="1"
-									 HorizontalAlignment="Left"
-									 TextWrapping="Wrap"
-									 />
-						<TextBox x:Name="noteText"
-									 Text="{Binding Text}"
-									 Grid.Column="0" 
-									 Grid.ColumnSpan="2" 
-									 Grid.Row="2"
-									 HorizontalAlignment="Stretch"
-									 TextWrapping="Wrap" 
-									 />
-					</Grid>
-				</DataTemplate>
-			</ListBox.ItemTemplate>
-		</ListBox>
+		<ListView x:Name="depList"
+				Grid.Column="0" Grid.Row="1" Grid.RowSpan="2"
+				Margin="10"
+				HorizontalContentAlignment="Stretch"
+				ScrollViewer.HorizontalScrollBarVisibility="Auto" 
+				>
+			<ListView.View>
+				<GridView>
+					<GridViewColumn Header="№" 
+								DisplayMemberBinding="{Binding DepID}"
+								Width="Auto"
+								/>
+					<GridViewColumn Header="Название" 
+								DisplayMemberBinding="{Binding DepName}"
+								Width="Auto"
+								/>
+					<GridViewColumn Header="Кол-во сотрудников" 
+								DisplayMemberBinding="{Binding NumOfEmpl}"
+								Width="Auto"
+								/>
+					<GridViewColumn Header="Дата создания" 
+								DisplayMemberBinding="{Binding OpeningDate}"
+								Width="Auto"
+								/>
+					<GridViewColumn Header="Проекты" 
+								DisplayMemberBinding="{Binding Projects}"
+								Width="Auto"
+								/>
+				</GridView>
+			</ListView.View>
+		</ListView>
 
 		<StackPanel
 			Grid.Column="1"
 			Grid.Row="1"
 			>
-			<Button x:Name="GenerateNotes" 
-					Click="Click_GenerateNotes"  
+			<Button x:Name="GenerateDeptAndEmployees" 
+					Click="Click_GenerateDeptAndEmployees"  
 					Width="180"
 					Margin="10,10,10,3"
 					BorderThickness="0"
@@ -96,41 +79,14 @@
 					</Style>
 				</Button.Resources>
 			</Button>
-			<Button x:Name="NewNote" 
-					Content="Новая запись" 
+			<Button x:Name="employees" 
+					Content="Сотрудники" 
 					Width="180"
 					Margin="5"
 					BorderThickness="0"
 					Background="WhiteSmoke"
-					Click="Click_NewNote"
+					Click="Click_Employees"
 					>
-				<Button.Resources>
-					<Style TargetType="{x:Type Border}">
-						<Setter Property="CornerRadius" Value="5"/>
-					</Style>
-				</Button.Resources>
-			</Button>
-			<Button x:Name="DeleteNote" 
-					Content="Удалить запись" 
-					Width="180"
-					Margin="5"
-					BorderThickness="0"
-					Background="WhiteSmoke"
-					Click="Click_DeleteNote"
-					>
-				<Button.Resources>
-					<Style TargetType="{x:Type Border}">
-						<Setter Property="CornerRadius" Value="5"/>
-					</Style>
-				</Button.Resources>
-			</Button>
-			<Button x:Name="SearchNote" 
-					Content="Поиск" 
-					Width="180"
-					Margin="5"
-					BorderThickness="0"
-					Background="WhiteSmoke"
-					Click="Click_SearchNote">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>
@@ -157,19 +113,6 @@
 					BorderThickness="0"
 					Background="WhiteSmoke"
 					Click="Click_SaveToXLM">
-				<Button.Resources>
-					<Style TargetType="{x:Type Border}">
-						<Setter Property="CornerRadius" Value="5"/>
-					</Style>
-				</Button.Resources>
-			</Button>
-			<Button x:Name="RecycleBin" 
-					Content="Корзина"
-					Width="180"
-					Margin="5"
-					BorderThickness="0"
-					Background="WhiteSmoke"
-					Click="Click_RecycleBin">
 				<Button.Resources>
 					<Style TargetType="{x:Type Border}">
 						<Setter Property="CornerRadius" Value="5"/>

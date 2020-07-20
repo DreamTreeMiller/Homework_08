@@ -36,9 +36,45 @@ namespace Homework_08
 		/// по нескольким полям, например возрасту и оплате труда
 		#endregion
 
+		Organization Apple;
 		public MainWindow()
 		{
 			InitializeComponent();
+			Apple = new Organization();
+		}
+
+		private void Click_GenerateDeptAndEmployees(object sender, RoutedEventArgs e)
+		{
+			GenerateDeptsAndEmployeesMenu newOrg = new GenerateDeptsAndEmployeesMenu();
+			newOrg.ShowDialog();
+			
+			if (newOrg.DialogResult == null ||
+				newOrg.DialogResult == false)
+				return;
+
+			Apple.GenerateDeptAndEmployees((int)newOrg.entryRange.NumDepRange,
+										   (int)newOrg.entryRange.NumEmpRange);
+			depList.ItemsSource = Apple.Departments;
+		}
+
+		private void Click_Employees(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Click_UploadFromXLM(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Click_SaveToXLM(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void Click_ExitButton(object sender, RoutedEventArgs e)
+		{
+			System.Windows.Application.Current.Shutdown();
 		}
 	}
 }

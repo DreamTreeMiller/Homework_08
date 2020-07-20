@@ -8,23 +8,10 @@ namespace Homework_08
 {
     public class Department
     {
-        private int depID;
-        public int DepID                           // От 1 до 9999
-        {
-            get { return this.depID; }
-            set
-            {
-                if (value <= 0) depID = 1;
-                if (value > 9999) depID = 9999;
-                this.depID = value;
-            }
-        }
+        public int DepID { get; set; }         // От 1 до 9999
 
-        private string depName;
-        public string DepName                         // Сделаем стандартным Отдел_хххх - 
-        {                                               // хххх - цифры от 1 до 9999
-            get { return "Отдел_" + $"{depID}"; }
-        }
+        public string DepName { get; set; }                       // Сделаем стандартным Отдел_хххх - 
+                                                      // хххх - цифры от 1 до 9999
         public DateTime OpeningDate { get; set; }
         public int NumOfEmpl { get; set; }
 
@@ -36,12 +23,13 @@ namespace Homework_08
         /// </summary>
         /// <param name="depID">Номер отдела</param>
         /// <param name="numOfEmpl">Количество сотрудников</param>
-        public Department(int depID, int numOfEmpl)
+        public Department(int depID, string depName, int numOfEmpl)
         {
-            DepID = depID;
-            NumOfEmpl = numOfEmpl;
+            DepID       = depID;
+            DepName     = depName;
+            NumOfEmpl   = numOfEmpl;
             OpeningDate = DateTime.Now;
-            Projects = "No projects yet";
+            Projects    = "No projects yet";
         }
 
         /// Предикат проверки номер департамента для List.Find
